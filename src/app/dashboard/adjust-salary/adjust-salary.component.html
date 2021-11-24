@@ -1,0 +1,26 @@
+<div class="d-flex flex-column justify-content-between align-items-center">
+  <div class="theme-background w-100">
+    <h1 class="mt-3 d-flex flex-row justify-content-center">Adjust Salary</h1>
+  </div>
+<form class="form-style w-75 mr-5 ml-5 mt-3" [formGroup]="adjustSalaryFormGroup">
+
+  <div class="row mt-2">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="basicSalary">Basic Salary</label>
+        <input type="number" id="basicSalary" class="form-control" formControlName="basicSalary" min="0"/>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="allowance">Allowance</label>
+        <input type="number" id="allowance" class="form-control" formControlName="allowance" min="0" />
+      </div>
+    </div>
+  </div>
+
+
+
+  <button class="btn form-control mt-3 theme-background" (click)="submitForm()">Signup</button>
+</form>
+</div>

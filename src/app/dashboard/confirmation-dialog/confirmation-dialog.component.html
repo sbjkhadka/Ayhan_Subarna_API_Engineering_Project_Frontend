@@ -1,0 +1,17 @@
+<div id="dialog-container" class="d-flex flex-column justify-content-between h-100">
+  <div class="mt-0 pt-3 pr-3 pl-3 theme-background">
+    <p class="titleText">DELETE &nbsp; <span *ngIf="itemType">{{itemType | uppercase}}</span>
+      <mat-icon style="float: right;"
+                (click)="close(false)" matSuffix id="close-icon">close
+      </mat-icon>
+    </p>
+  </div>
+
+  <p>Are you sure you would like to delete this item ?</p>
+
+  <div class="w-100 d-flex justify-content-around mb-4">
+    <button class="btn theme-background" (click)="close(true)">DELETE</button>
+    <button class="btn theme-background-reverse" (click)="close(false)">CANCEL</button>
+  </div>
+
+</div>

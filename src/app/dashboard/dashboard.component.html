@@ -1,0 +1,99 @@
+<div class="container-fluid ml-3">
+  <div class="row theme-background">
+    <div class="col-md-12 d-flex justify-content-between align-items-center mt-3 mb-3">
+      <span></span>
+      <h1 class="text-uppercase">Employee Management System</h1>
+      <p class="d-flex align-items-center pr-5">
+        <mat-icon class="transform-double cursor-pointer" (click)="toggleView()">compare_arrows</mat-icon>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 bg-light d-flex justify-content-center align-items-center flex-column">
+      <div class="d-flex justify-content-between align-items-center mb-2 mt-2 w-100 pr-5">
+        <span></span>
+        <h1 *ngIf="isEmployeeShowing" class="theme-background-reverse">Employee Table</h1>
+        <mat-icon class="transform-double cursor-pointer theme-background-reverse" *ngIf="isEmployeeShowing" (click)="addEditEmployee($event, false)">add_box</mat-icon>
+      </div>
+
+      <table mat-table [dataSource]="dataSource.value" multiTemplateDataRows class="mat-elevation-z8" *ngIf="isEmployeeShowing">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.firstName}} {{element.lastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef> Role </th>
+          <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="department">
+          <th mat-header-cell *matHeaderCellDef> Department </th>
+          <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+            <mat-select [value]="element.departmentId" style="width: 60%" (selectionChange)="transferEmployee($event,element)">
+              <mat-option *ngFor="let dept of departmentList" [value]="dept.departmentId">{{dept.departmentName}}</mat-option>
+            </mat-select>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="basicSalary">
+          <th mat-header-cell *matHeaderCellDef> Basic Salary </th>
+          <td mat-cell *matCellDef="let element"> {{element.basicSalary}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="allowance">
+          <th mat-header-cell *matHeaderCellDef> Allowance </th>
+          <td mat-cell *matCellDef="let element"> {{element.allowance}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="isActive">
+          <th mat-header-cell *matHeaderCellDef> Employee Status </th>
+          <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+            <mat-checkbox (change)="switchEmployeeStatus($event, element)" [checked]="element.isActive === 1"></mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="eligibleForRehire">
+          <th mat-header-cell *matHeaderCellDef> Eligible for rehire </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon class="icon-color" *ngIf="element.eligibleForRehire === 1">verified_user</mat-icon>
+            <mat-icon class="icon-color" *ngIf="element.eligibleForRehire !== 1">block</mat-icon>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element" (click)="$event.stopPropagation()">
+            <mat-icon class="cursor-pointer icon-color" *ngIf="element.isActive === 1" (click)="addEditEmployee($event, true, element)">edit</mat-icon>
+            <mat-icon class="cursor-pointer icon-color" *ngIf="element.isActive === 1" (click)="adjustPay($event, element)"> attach_money</mat-icon>
+            <mat-icon class="cursor-pointer icon-color" *ngIf="element.isActive === 1" (click)="promoteEmployee($event, element)">arrow_upward</mat-icon>
+            <mat-icon class="cursor-pointer icon-color-red" *ngIf="element.isActive === 1" (click) = "deleteEmployee($event, element)">delete</mat-icon>
+          </td>
+        </ng-container>
+
+        <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="example-element-detail" style="background-color: whitesmoke;padding-left: 10px"
+                 [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              {{element.email}} | {{element.phone}} | {{element.address}} | {{element.joinDate}}  |
+              <input class="form-control w-25" type="number" [value]="element.recentAppraisal" (change)="changeAppraisal($event, element)" min="0" max="10">
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+            class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+
+      <app-department-dashboard [employees]="employees" [departments]="departments" *ngIf="!isEmployeeShowing"></app-department-dashboard>
+
+    </div>
+  </div>
+</div>

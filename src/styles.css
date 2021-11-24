@@ -1,0 +1,58 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~bootstrap/dist/css/bootstrap.min.css';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.transform-double {
+  transform: scale(2);
+}
+.pr-5 {
+  padding-right: 5px;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.theme-background {
+  background-color: #673AB7;
+  color: whitesmoke;
+}
+.theme-background-reverse {
+  background-color: whitesmoke;
+  color: #673AB7;
+}
+.icon-color {
+  color: #673AB7;
+}
+.icon-color-red {
+  color: red;
+}
+.mat-header-cell{
+  background-color: #673AB7;
+  color: white;
+  justify-content: space-around;
+  font-size: medium;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  background-color: #673AB7 !important;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background,
+.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #673AB7 !important;
+}
+.mat-row:nth-child(4n-1){
+  background-color: #B0BEC5;
+}
+
+/*.mat-row:nth-child(odd){*/
+/*  background-color:whitesmoke;*/
+/*}*/
+
+.no-padding-container .mat-dialog-container {
+  padding: 0 !important;
+}
+
+
+
+
+
