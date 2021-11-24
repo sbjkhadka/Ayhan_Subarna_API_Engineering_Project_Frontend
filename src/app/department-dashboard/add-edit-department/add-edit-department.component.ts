@@ -67,5 +67,4 @@ export class AddEditDepartmentComponent implements OnInit {
       });
     }
   }
-
 }
