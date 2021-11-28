@@ -61,6 +61,7 @@ export class DashboardComponent implements OnInit {
         if (newEmployee) {
           const existing = this.employees.value;
           const index = existing.findIndex(d => d.employeeId === newEmployee.employeeId);
+          newEmployee.departmentId = Number(newEmployee.departmentId);
           if (index >= 0) {
             existing[index] = newEmployee;
           } else {
