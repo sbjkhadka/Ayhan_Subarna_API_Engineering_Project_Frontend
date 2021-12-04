@@ -20,21 +20,18 @@ export class DepartmentService {
   }
 
   createDepartment(department: CustomDepartment): Observable<any> {
-    console.log('service', department);
     return this.http.post<any>(`${environment.base_url}Departments`, department).pipe(catchError(error => {
       return throwError(error);
     }));
   }
 
   editDepartment(department: CustomDepartment): Observable<any> {
-    console.log('service', department);
     return this.http.put<any>(`${environment.base_url}Departments/${department.departmentId}`, department).pipe(catchError(error => {
       return throwError(error);
     }));
   }
 
   deleteDepartment(department: Department): Observable<any> {
-    console.log('service', department);
     return this.http.delete<any>(`${environment.base_url}Departments/${department.departmentId}`).pipe(catchError(error => {
       return throwError(error);
     }));
